@@ -1,5 +1,7 @@
-from sellerapp.mainApp import app, db
-# from sellerapp.models import User, Document, Project
+import sys
+sys.path.append("../..")
+from sellerpapp.mainApp import app, db
+from sellerpapp.models import User, Document, Project
 from flask_script import Manager, prompt_bool
 import requests
 import sys
