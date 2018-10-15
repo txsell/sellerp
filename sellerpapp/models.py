@@ -20,7 +20,6 @@ project_identifier = db.Table('project_identifier',
 class User(db.Model, UserMixin):
 	id = db.Column(db.Integer, primary_key = True)
 	email = db.Column(db.String, unique=True)
-	password_hash = db.Column(db.String)
 	firstName = db.Column(db.String(80))
 	lastName = db.Column(db.String(80))
 	position = db.Column(db.String(80))
@@ -28,18 +27,6 @@ class User(db.Model, UserMixin):
 	year = db.Column(db.String(60))
 	number = db.Column(db.String(12))
 	attendance = db.Column(db.Integer)
-
-	@property
-	def password(self):
-		return self.password_hash
-
-	@password.setter
-	def password(self, password):
-		self.password_hash = generate_password_hash(password)
-	
-	def check_password(self, password):
-		# print("HERE IS THE PASSWORD: ", password)
-		return check_password_hash(self.password_hash, password)
 
 	@staticmethod
 	def get_by_email(email):

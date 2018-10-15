@@ -18,6 +18,23 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 def before_request():
     if oidc.user_loggedin:
         g.user = okta_client.get_user(oidc.user_getfield("sub"))
+        found_user = User.get_by_email(g.user.profile.email)
+        if found_user is not None:
+            found_user.firstName = g.user.profile.firstName
+            found_user.lastName = g.user.profile.lastName
+            found_user.position = g.user.profile.userType
+            found_user.department = g.user.profile.department
+            found_user.number = g.user.profile.mobileNumber
+        elif found_user is None:
+            email = g.user.profile.email
+            firstName = g.user.profile.firstName
+            lastName = g.user.profile.lastName
+            position = g.user.profile.userType
+            department = g.user.profile.department
+            number = g.user.profile.mobileNumber
+            new_user = User(email = email, firstName = firstName, lastName = lastName, position = position, department = department, number = number)
+            db.session.add(new_user)
+        db.session.commit()
     else:
         g.user = None
 
