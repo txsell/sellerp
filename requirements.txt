@@ -20,3 +20,5 @@ SQLAlchemy==1.1.10
 urllib3==1.21.1
 google-api-python-client==1.6.4
 six==1.4.1
+flask-oidc==1.4.0
+okta==0.0.4

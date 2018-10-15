@@ -3,7 +3,7 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block body %}
-  <h1 class="text-center">Good afternoon, Arnav!</h1>
+  <h1 class="text-center">Good afternoon, {{ g.user.profile.firstName }}!</h1>
   <div class="row">
     <div class="col-sm-8 offset-sm-2">
       <p>Welcome to the dashboard, {{ g.user.profile.firstName }}!</p>
