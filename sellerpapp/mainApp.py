@@ -24,14 +24,14 @@ def before_request():
             found_user.lastName = g.user.profile.lastName
             # found_user.position = g.user.profile.userType
             # found_user.department = g.user.profile.department
-            found_user.number = g.user.profile.mobileNumber
-        elif user is None:
+            # found_user.number = g.user.profile.mobileNumber
+        elif found_user is None:
             email = g.user.profile.email
             firstName = g.user.profile.firstName
             lastName = g.user.profile.lastName
             # position = g.user.profile.userType
             # department = g.user.profile.department
-            number = g.user.profile.mobileNumber
+            # number = g.user.profile.mobileNumber
             new_user = User(email = email, firstName = firstName, lastName = lastName, position = position, department = department, number = number)
             db.session.add(new_user)
         db.session.commit()
@@ -44,7 +44,7 @@ def index():
 	return render_template("index.html")
 
 @app.route('/email-form', methods=['GET', 'POST'])
-def email-form():
+def emailform():
     if request.method == 'POST':
         link = str(request.form['field'])
         print(link)
@@ -53,7 +53,7 @@ def email-form():
         return render_template("dts.html")
 
 @app.route('/mass-mail', methods=['GET', 'POST'])
-def mass-mail():
+def massmail():
     if request.method == 'POST':
         choice = request.form['field']
         message = str(request.form['field-2'])
@@ -64,7 +64,7 @@ def mass-mail():
         return render_template("mass-mail.html")
 
 @app.route('/project-proposal', methods=['GET', 'POST'])
-def project-proposal():
+def projectproposal():
     if request.method == 'POST':
         title = request.form['name']
         objective = request.form['email']
