@@ -25,7 +25,7 @@ def before_request():
             found_user.position = g.user.profile.userType
             found_user.department = g.user.profile.department
             found_user.number = g.user.profile.mobileNumber
-        elif found_user is None:
+        elif user is None:
             email = g.user.profile.email
             firstName = g.user.profile.firstName
             lastName = g.user.profile.lastName
