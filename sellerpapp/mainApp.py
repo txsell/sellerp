@@ -41,7 +41,22 @@ def logout():
     oidc.logout()
     return redirect(url_for(".index"))
 
+@app.route("/viewproposals")
+def viewproposals():
+    Projects = Project.query.all;
+    proposal_title = {}
+    owner = {}
+    status = {}
+    for stock in current_user.stocks:
+        info = get_info_server(stock.ticker)
+        prices[stock.ticker] = info['price']
+        names[stock.ticker] = info['name']
+        dates[stock.ticker] = info['datetime']
 
+return render_template(
+        'view-proposals-page.html',
+        Proposals = 
+        )
 
 if __name__ == '__main__':
     app.run(debug=True)
