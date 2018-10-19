@@ -43,48 +43,11 @@ def before_request():
 # Route for handling the login page logic
 @app.route('/', methods=['GET', 'POST'])
 def index():
-	return render_template("index.html")
-
-@app.route('/email-form', methods=['GET', 'POST'])
-def emailform():
-    if request.method == 'POST':
-        link = str(request.form['field'])
-        print(link)
-        return redirect('dashboard')
-    else:
-        return render_template("dts.html")
-
-@app.route('/mass-mail', methods=['GET', 'POST'])
-def massmail():
-    if request.method == 'POST':
-        choice = request.form['field']
-        message = str(request.form['field-2'])
-        print(choice)
-        print(message)
-        return redirect('dashboard')
-    else:
-        return render_template("mass-mail.html")
-
-@app.route('/project-proposal', methods=['GET', 'POST'])
-def projectproposal():
-    if request.method == 'POST':
-        title = request.form['name']
-        objective = request.form['email']
-        members = request.form['Members']
-        date = request.form['Completion-Date']
-        print(title)
-        print(objective)
-        print(members)
-        print(date)
-        return redirect('dashboard')
-    else:
-        return render_template('project-proposal.html')
-
-@app.route('/', methods=[])
+    return render_template("index.html")
 
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
-	return render_template("dashboard.html")
+    return render_template("dashboard.html")
 
 @app.route("/login")
 @oidc.require_login
@@ -96,6 +59,31 @@ def login():
 def logout():
     oidc.logout()
     return redirect(url_for(".index"))
+
+@app.route("/dts", methods=['GET', 'POST'])
+def dts():
+    form = Document()
+    if form.validate_on_submit():
+        return 'Form Successfully Submitted!'
+    return render_template('dts.html', form=form)
+
+@app.route('/project-proposal', methods=['GET', 'POST'])
+def projectproposal():
+    form = Project()
+    if form.validate_on_submit():
+        return 'Form Successfully Submitted!'
+    return render_template('project-proposal.html', form=form)
+
+@app.route('/video-chat', methods=['GET', 'POST'])
+def test():
+    return redirect("https://itshello.co/8btdda")
+
+@app.route("/viewproposals", methods=['GET'])
+ def viewproposals():
+    project.names = for title in title.query.all()
+    project.owners = for creator in creator.query.all()
+    return render_template('view-proposals-page.html', projectnames=project.names, projectowners=project.owners)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
