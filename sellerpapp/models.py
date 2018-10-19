@@ -22,10 +22,11 @@ class User(db.Model, UserMixin):
 	email = db.Column(db.String, unique=True)
 	firstName = db.Column(db.String(80))
 	lastName = db.Column(db.String(80))
-	position = db.Column(db.String(80))
-	department = db.Column(db.String(80))
-	year = db.Column(db.String(60))
-	number = db.Column(db.String(12))
+	oktaid = db.Column(db.String)
+	# position = db.Column(db.String(80))
+	# department = db.Column(db.String(80))
+	# year = db.Column(db.String(60))
+	# number = db.Column(db.String(12))
 	attendance = db.Column(db.Integer)
 
 	@staticmethod
