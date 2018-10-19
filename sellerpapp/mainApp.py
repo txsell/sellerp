@@ -22,15 +22,15 @@ def before_request():
         if found_user is not None:
             found_user.firstName = g.user.profile.firstName
             found_user.lastName = g.user.profile.lastName
-            found_user.position = g.user.profile.userType
-            found_user.department = g.user.profile.department
+            # found_user.position = g.user.profile.userType
+            # found_user.department = g.user.profile.department
             found_user.number = g.user.profile.mobileNumber
         elif user is None:
             email = g.user.profile.email
             firstName = g.user.profile.firstName
             lastName = g.user.profile.lastName
-            position = g.user.profile.userType
-            department = g.user.profile.department
+            # position = g.user.profile.userType
+            # department = g.user.profile.department
             number = g.user.profile.mobileNumber
             new_user = User(email = email, firstName = firstName, lastName = lastName, position = position, department = department, number = number)
             db.session.add(new_user)
