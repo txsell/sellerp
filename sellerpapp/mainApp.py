@@ -79,6 +79,7 @@ class ProposalForm(Form):
     file = FileField('Timeline', [validators.optional()])
 
 @app.route('/project-proposal', methods=['GET', 'POST'])
+@oidc.require_login
 def projectproposal():
     form = ProposalForm(request.form)
 
