@@ -50,8 +50,10 @@ class Document(db.Model):
 class Project(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
 	title = db.Column(db.String)
+	description = db.Column(db.String)
 	link = db.Column(db.String)
 	created = db.Column(db.DateTime)
+	dueDate = db.Column(db.DateTime)
 	closed = db.Column(db.DateTime)
 	creator = db.Column(db.Integer, db.ForeignKey('user.id'))
 

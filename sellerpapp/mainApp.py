@@ -2,15 +2,19 @@ from __future__ import print_function
 import sys, os, operator
 from datetime import datetime
 from flask import Flask, render_template, request, flash, redirect, url_for, g
-from flask_sqlalchemy import SQLAlchemy 
+from flask_sqlalchemy import SQLAlchemy
 from sellerpapp.models import User, Document, Project
 from sellerpapp import db, app, oidc, okta_client
 import requests
 import json
 import smtplib
 from itsdangerous import URLSafeTimedSerializer
-from sqlalchemy import func 
+from sqlalchemy import func
 import ntpath
+from wtforms import Form, BooleanField, StringField, TextAreaField, DateTimeField, validators
+from flask_wtf import Form
+from flask_wtf.file import FileField
+from werkzeug import secure_filename
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -54,7 +58,6 @@ def dashboard():
 def login():
     return redirect(url_for(".dashboard"))
 
-
 @app.route("/logout")
 def logout():
     oidc.logout()
@@ -67,11 +70,31 @@ def dts():
         return 'Form Successfully Submitted!'
     return render_template('dts.html', form=form)
 
+# we may want to put this in a separate file that holds all of our form objects
+class ProposalForm(Form):
+    title = StringField('Title', [validators.Length(max=25), validators.DataRequired()])
+    description = TextAreaField('Description', [validators.Length(max=250), validators.DataRequired()])
+    link = StringField('Link', [validators.URL(), validators.DataRequired()])
+    completion_date = DateTimeField('Completion Date', [validators.DataRequired()], format='%m/%d/%y')
+    file = FileField('Timeline', [validators.optional()])
+
 @app.route('/project-proposal', methods=['GET', 'POST'])
 def projectproposal():
-    form = Project()
-    if form.validate_on_submit():
-        return 'Form Successfully Submitted!'
+    form = ProposalForm(request.form)
+
+    if request.method == 'POST' and form.validate():
+        # log the time the proposal was created
+        created = datetime.now()
+
+        # create project and store it in database
+        project = Project(title=form.title.data, description=form.description.data, link=form.link.data, created=created, dueDate=form.completion_date.data)
+        db.session.add(project)
+        db.session.commit()
+
+        # flash success message
+        flash('Project Successfully Submitted', 'success')
+
+        return redirect(url_for('projectproposal'))
     return render_template('project-proposal.html', form=form)
 
 @app.route('/video-chat', methods=['GET', 'POST'])
@@ -79,12 +102,10 @@ def test():
     return redirect("https://itshello.co/8btdda")
 
 @app.route("/viewproposals", methods=['GET'])
- def viewproposals():
-    project.names = for title in title.query.all()
-    project.owners = for creator in creator.query.all()
+def viewproposals():
+    project.names = [title for title in title.query.all()]
+    project.owners = [title for creator in creator.query.all()]
     return render_template('view-proposals-page.html', projectnames=project.names, projectowners=project.owners)
-
 
 if __name__ == '__main__':
     app.run(debug=True)
-

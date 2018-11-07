@@ -5,3 +5,59 @@ h1 {
 footer {
   padding-top: 2em;
 }
+body {
+  background: -webkit-linear-gradient(left, #f2f2f2, white);
+}
+.proposal-form {
+    background: #fff;
+    margin-top: 10%;
+    margin-bottom: 5%;
+    width: 70%;
+}
+.proposal-form .form-control {
+    border-radius:1rem;
+}
+.proposal-image {
+    text-align: center;
+}
+.proposal-image img {
+    border-radius: 6rem;
+    margin-top: -4%;
+    width: 20%;
+    transform: rotate(29deg);
+}
+
+.proposal-form form {
+    padding: 14%;
+}
+.proposal-form form .row {
+    margin-bottom: -7%;
+}
+.proposal-form h1 {
+    margin-bottom: 0%;
+    margin-top: 5%;
+    text-align: center;
+}
+.proposal-form .btnPropose {
+    width: 50%;
+    border: none;
+    border-radius: 1rem;
+    padding: 1.5%;
+    background: #dc3545;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+}
+.btnProposalSubmit {
+    width: 50%;
+    border-radius: 1rem;
+    padding: 1.5%;
+    color: #fff;
+    background-color: #0062cc;
+    border: none;
+    cursor: pointer;
+    margin-top: 5%;
+}
+.proposal-form input[type=text] {
+
+}

@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask 
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask.ext.security.datastore import SQLAlchemyUserDatastore
 import smtplib
@@ -10,6 +10,7 @@ from flask_oidc import OpenIDConnect
 from okta import UsersClient
 
 basedir = os.path.abspath(os.path.dirname(__file__))
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '~t\x86\xc9\x1ew\x8bOcX\x85O\xb6\xa2\x11kL\xd1\xce\x7f\x14<y\x9e'
 

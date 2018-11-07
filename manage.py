@@ -20,6 +20,12 @@ def dropdb():
 		db.drop_all()
 		print('Dropped the database.')
 
+# prints titles of all projects
+@manager.command
+def printprojects():
+	print('Projects List:\n')
+	for project in Project.query.all():
+		print(str(project.title) + ' - ' + str(project.description))
+	print('')
 if __name__ == '__main__':
 	manager.run()
-
