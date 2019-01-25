@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block title %}View Projects{% endblock %}
+
+{% block body %}
+  <div class="show-project">
+    <h1>{{project.title}}</h1>
+    <hr>
+    <div class="container">
+      <p>URL: <a href="{{project.link}}">{{project.link}}</a></p>
+      <p>Description: <br> {{project.description}}</p>
+    </div>
+  </div>
+{% endblock %}

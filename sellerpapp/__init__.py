@@ -23,8 +23,8 @@ oidc = OpenIDConnect(app)
 okta_client = UsersClient("https://dev-608612.oktapreview.com", "00ySVU9xK9GySGMJrT0fL6Eweibwq9UMXrsRJYJHyI")
 
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'sellerp.db')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'sellerp.db')
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 
 app.config['DEBUG'] = False
 app.config['SECURITY_RECOVERABLE'] = False

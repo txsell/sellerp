@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block title %}View Projects{% endblock %}
+
+{% block body %}
+<div class="view-projects">
+  <h1>Projects in Progress</h1>
+  <ul class="list-group">
+      {% for project in Projects %}
+      <li class="list-group-item"><a href="/view-projects/{{project.id}}">{{project.title}} by {{project.creator}}</li>
+      {% endfor %}
+  </ul>
+</div>
+{% endblock %}
