@@ -19,31 +19,31 @@ from werkzeug import secure_filename
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-# @app.before_request
-# def before_request():
-#     if oidc.user_loggedin:
-#         g.user = okta_client.get_user(oidc.user_getfield("sub"))
-#         found_user = User.get_by_email(g.user.profile.email)
-#         # if found_user is not None:
-#         #     found_user.firstName = g.user.profile.firstName
-#         #     found_user.lastName = g.user.profile.lastName
-#         #     found_user.oktaid = g.user.id
-#         #     # found_user.position = g.user.profile.userType
-#         #     # found_user.department = g.user.profile.department
-#         #     # found_user.number = g.user.profile.mobileNumber
-#         # elif found_user is None:
-#         #     email = g.user.profile.email
-#         #     firstName = g.user.profile.firstName
-#         #     lastName = g.user.profile.lastName
-#         #     oktaid = g.user.id
-#         #     # position = g.user.profile.userType
-#         #     # department = g.user.profile.department
-#         #     # number = g.user.profile.mobileNumber
-#         #     new_user = User(email = email, firstName = firstName, lastName = lastName, oktaid = oktaid)
-#         #     db.session.add(new_user)
-#         db.session.commit()
-#     else:
-#         g.user = None
+@app.before_request
+def before_request():
+    if oidc.user_loggedin:
+        g.user = okta_client.get_user(oidc.user_getfield("sub"))
+        found_user = User.get_by_email(g.user.profile.email)
+        if found_user is not None:
+            found_user.firstName = g.user.profile.firstName
+            found_user.lastName = g.user.profile.lastName
+            found_user.oktaid = g.user.id
+            # found_user.position = g.user.profile.userType
+            # found_user.department = g.user.profile.department
+            # found_user.number = g.user.profile.mobileNumber
+        elif found_user is None:
+            email = g.user.profile.email
+            firstName = g.user.profile.firstName
+            lastName = g.user.profile.lastName
+            oktaid = g.user.id
+            # position = g.user.profile.userType
+            # department = g.user.profile.department
+            # number = g.user.profile.mobileNumber
+            new_user = User(email = email, firstName = firstName, lastName = lastName, oktaid = oktaid)
+            db.session.add(new_user)
+        db.session.commit()
+    else:
+        g.user = None
 
 # Route for handling the login page logic
 @app.route('/', methods=['GET', 'POST'])
